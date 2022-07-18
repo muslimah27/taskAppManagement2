@@ -1,4 +1,5 @@
 
+import 'package:app_task_management/app/utils/style/appColors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ class SideBar extends StatelessWidget {
       elevation: 5,
       child: Container(
         height: Get.height,
-      color: Colors.blue[100],
+      color: appColors.primaryBg,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +44,7 @@ class SideBar extends StatelessWidget {
                           children: [
                             Icon(
                               Get.currentRoute == '/home' ?
-                              Icons.dashboard: Icons.dashboard_outlined, size: 30, color: Colors.grey,),
+                              Icons.dashboard: Icons.dashboard_outlined, size: 30, color: appColors.primaryText,),
                            
     
                           ],
@@ -78,7 +79,7 @@ class SideBar extends StatelessWidget {
                           children: [
                             Icon(
                               Get.currentRoute == '/task' ?
-                              Icons.dashboard: Icons.dashboard_outlined, size: 30, color: Colors.grey,),
+                              Icons.dashboard: Icons.dashboard_outlined, size: 30, color: appColors.primaryText,),
                            
     
                           ],
@@ -114,7 +115,7 @@ class SideBar extends StatelessWidget {
                           children: [
                             Icon(
                               Get.currentRoute == '/friends' ?
-                              Icons.person: Icons.person_add, size: 30, color: Colors.grey,),
+                              Icons.person: Icons.person_add, size: 30, color: appColors.primaryText,),
                            
     
                           ],
@@ -150,7 +151,7 @@ class SideBar extends StatelessWidget {
                           children: [
                             Icon(
                               Get.currentRoute == '/profile' ?
-                              Icons.person: Icons.person_outline, size: 30, color: Colors.grey,),
+                              Icons.person: Icons.person_outline, size: 30, color: appColors.primaryText,),
                            
     
                           ],

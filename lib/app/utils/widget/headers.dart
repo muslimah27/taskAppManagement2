@@ -1,4 +1,5 @@
 
+import 'package:app_task_management/app/utils/style/appColors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,10 +25,10 @@ class Header extends StatelessWidget {
               children: const [
                 Text(
                   'Task Management',
-                  style: TextStyle(fontSize: 20, color: Colors.grey),
+                  style: TextStyle(fontSize: 20, color: appColors.primaryText),
                 ),
                 Text('Menjadi mudah dengan Task Management',
-                    style: TextStyle(fontSize: 15, color: Colors.grey))
+                    style: TextStyle(fontSize: 15, color: appColors.primaryText))
               ],
             ),
             const Spacer(
@@ -53,7 +54,7 @@ class Header extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            const Icon(Icons.notifications, color: Colors.grey),
+            const Icon(Icons.notifications, color: appColors.primaryText),
             const SizedBox(
               width: 10,
             ),
@@ -74,13 +75,14 @@ class Header extends StatelessWidget {
               child: Row(
                 children: const [
                   Text('Log out',
-                      style: TextStyle(fontSize: 15, color: Colors.grey)),
+                      style: TextStyle(fontSize: 18, color: appColors.primaryText)),
                   SizedBox(
                     width: 5,
                   ),
                   Icon(
                     Icons.logout,
-                    color: Colors.grey,
+                    color: appColors.primaryText,
+                    size: 30,
                   )
                 ],
               ),
