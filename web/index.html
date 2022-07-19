@@ -31,6 +31,9 @@
 
   <title>app_task_management</title>
   <link rel="manifest" href="manifest.json">
+
+  <meta name="google-signin-client_id" 
+  content="828053818412-99b8jg7ps7u8sg1gbh5pmmfgdunmk6q2.apps.googleusercontent.com">
 </head>
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
@@ -39,8 +42,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
       <script type="module">
         // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js";
+        import { initializeApp } from "firebase/app";
+        import { getAnalytics } from "firebase/analytics";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
       

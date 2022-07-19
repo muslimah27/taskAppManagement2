@@ -1,3 +1,4 @@
+import 'package:app_task_management/app/data/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -5,7 +6,7 @@ import 'package:get/get.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,9 +43,9 @@ class LoginView extends GetView<LoginController> {
                 child: Container(
              decoration: BoxDecoration(
                color: Colors.white,
-              borderRadius: BorderRadius.only(topRight: Radius.circular(50), bottomRight: Radius.circular(50))
+            borderRadius: BorderRadius.only(topRight: Radius.circular(50), bottomRight: Radius.circular(50))
 
-             ),
+          ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -58,7 +59,7 @@ class LoginView extends GetView<LoginController> {
                     ),
                     child: InkWell(
                       onTap: (){
-                        Navigator.pushNamed(context, 'home');
+                        authC.signInWithGoogle();
                       },
                       child: Ink(
                         

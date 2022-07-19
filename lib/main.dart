@@ -1,4 +1,6 @@
+import 'package:app_task_management/app/data/controller/auth_controller.dart';
 import 'package:app_task_management/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +14,20 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.put(AuthController(), permanent: true);
   runApp(
-    GetMaterialApp(
+    StreamBuilder<User?>(
+    stream: FirebaseAuth.instance.authStateChanges(),
+    builder: (context, snapshot) {
+      if(snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Muslimah Tugas ",
-      initialRoute: AppPages.INITIAL,
+      initialRoute: snapshot.data != null? Routes.HOME : Routes.LOGIN,
       getPages: AppPages.routes,
-    ),
-  );
+    );
+    },
+    ));
 }   
