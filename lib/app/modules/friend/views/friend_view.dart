@@ -38,26 +38,28 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                   ? const Header()
                   : Container(
                     padding: EdgeInsets.all(20),
-                    child: Row(
-                    children: [IconButton(onPressed: () {
-                      _drawerKey.currentState!.openDrawer();
-                    }, 
-                    icon: Icon(Icons.menu, 
-                    color: appColors.primaryText)
+                    child: Column(
+                      children: [
+                        Row(
+                        children: [IconButton(onPressed: () {
+                          _drawerKey.currentState!.openDrawer();
+                        }, 
+                        icon: Icon(Icons.menu, 
+                        color: appColors.primaryText)
               ),
       
               const SizedBox(
-                width: 15, 
+                width: 7, 
             ),
                 Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    'Task Management',
-                    style: TextStyle(fontSize: 20, color: appColors.primaryText),
+                        'Task Management',
+                        style: TextStyle(fontSize: 20, color: appColors.primaryText),
                   ),
                   Text('Menjadi mudah dengan Task Management',
-                      style: TextStyle(fontSize: 14, color: appColors.primaryText)
+                          style: TextStyle(fontSize: 14, color: appColors.primaryText)
                   )
                 ],
               ),
@@ -80,6 +82,8 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
               )
             ],
           ),
+                      ],
+                    ),
         ),
               //content / isipage /screen
                   Expanded(
