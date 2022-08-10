@@ -4,15 +4,19 @@ import 'package:app_task_management/app/utils/style/appColors.dart';
 import 'package:app_task_management/app/utils/widget/MyTask.dart';
 import 'package:app_task_management/app/utils/widget/headers.dart';
 import 'package:app_task_management/app/utils/widget/myFriends.dart';
+import 'package:app_task_management/app/utils/widget/poepleYouMayKnow.dart';
 import 'package:app_task_management/app/utils/widget/sidebar.dart';
 import 'package:app_task_management/app/utils/widget/upcomingTask.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../data/controller/auth_controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  final authCon = Get.find<AuthController>();
+
 
 final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
@@ -80,11 +84,11 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                               ),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
-                                child: const CircleAvatar(
+                                child: CircleAvatar(
                                   backgroundColor: Colors.amber,
                                   radius: 25,
                                   foregroundImage: NetworkImage(
-                                      'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
+                                      authCon.auth.currentUser!.photoURL!),
                                 ),
                               )
                             ],
@@ -97,7 +101,7 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                           ? const EdgeInsets.all(30)
                           : const EdgeInsets.all(10),
                       margin:
-                          !context.isPhone ? const EdgeInsets.all(10) : null,
+                          !context.isPhone ? const EdgeInsets.all(5) : null,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: !context.isPhone
@@ -110,9 +114,10 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                             
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'My Task',
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'People You May Now',
                                   style: TextStyle(
                                     color: appColors.primaryText,
                                     fontSize: 30,
@@ -121,8 +126,8 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                                 SizedBox(
                                   height: 5,
                                 ),
-                                // MY TASK
-                                MyTask(),
+                                // TASK
+                                peopleYouMayKnow(),
                               ],
                             ),
                           ),
@@ -131,12 +136,26 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                           ? Expanded(
                             child: Row(
                               children: [
-                                upcomingTask(),
+                                MyTask(),
                                 myFriends()
                               ],
                             ),
                           )
-                          : const upcomingTask(),
+                          : Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                 const Text(
+                                  'My Task',
+                                  style: TextStyle(
+                                    color: appColors.primaryText,
+                                    fontSize: 30,
+                                  ),
+                                ),
+                                MyTask(),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

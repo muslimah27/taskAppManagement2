@@ -43,7 +43,7 @@ class LoginView extends GetView<LoginController> {
                 child: Container(
              decoration: BoxDecoration(
                color: Colors.white,
-            borderRadius: BorderRadius.only(topRight: Radius.circular(50), bottomRight: Radius.circular(50))
+            borderRadius: BorderRadius.only(topRight: Radius.circular(50), bottomRight: Radius.circular(50), topLeft: Radius.circular(50), bottomLeft: Radius.circular(50)),
 
           ),
               child: Column(
@@ -63,7 +63,7 @@ class LoginView extends GetView<LoginController> {
                       },
                       child: Ink(
                         
-                        child: Text("Sign Up Here",style: TextStyle(color: Colors.white, fontSize: 12 ),),
+                        child: Text("Sign In With Google",style: TextStyle(color: Colors.white, fontSize: 12 ),),
                       ),
                     ),
                   )

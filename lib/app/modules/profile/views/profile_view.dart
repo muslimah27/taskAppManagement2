@@ -1,5 +1,6 @@
 import 'package:app_task_management/app/utils/widget/MyTask.dart';
 import 'package:app_task_management/app/utils/widget/ProfilWidget.dart';
+import 'package:app_task_management/app/utils/widget/poepleYouMayKnow.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ import '../../../data/controller/auth_controller.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
-final authC = Get.find<AuthController>();
+final authCon = Get.find<AuthController>();
 final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -73,7 +74,7 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                       child: const Text('Batal'),
                     ),
                     confirm: ElevatedButton(
-                        onPressed: () => authC.logout(),
+                        onPressed: () => authCon.logout(),
                         child: const Text('Ya')),
                   );
                 },
@@ -111,10 +112,10 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children:  [
                       ProfilWidget(),
                         Text(
-                            'My Task',
+                            'People You May Now',
                               style: TextStyle(
                               color: appColors.primaryText,
                               fontSize: 15,
@@ -125,8 +126,9 @@ final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
                             ),
                         SizedBox(
                           height: 200,
-                          child: MyTask(),
+                          child: peopleYouMayKnow(),
                         ),
+
                       ],),
                   ),
                 )

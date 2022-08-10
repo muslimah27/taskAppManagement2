@@ -1,404 +1,206 @@
 import 'package:app_task_management/app/utils/style/appColors.dart';
+import 'package:app_task_management/app/utils/widget/prosesTask.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../data/controller/auth_controller.dart';
+import 'package:app_task_management/app/data/controller/auth_controller.dart';
 
 class MyTask extends StatelessWidget {
-  const MyTask({
-    Key? key,
-  }) : super(key: key);
-
+  final authCon = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 175,
-      child: ListView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(15),
-            width: 300,
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(20),
-              color: appColors.cardBg,
-            ),
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      height: 25,
-                      width: 80,
-                      color: appColors.primaryBg,
-                      child: const Center(
-                          child: Text(
-                        '100%',
-                        style: TextStyle(
-                          color: appColors
-                              .primaryText,
-                        ),
-                      )),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                Container(
-                  height: 25,
-                  width: 80,
-                  color: appColors.primaryBg,
-                  child: const Center(
-                      child: Text(
-                    '10/10 Task',
-                    style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                    ),
-                  )),
-                ),
-                const Text(
-                  'Pemrograman Mobile - Flutter',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 20),
-                ),
-                const Text(
-                  'Deadline 3 Hari lagi',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 15),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            clipBehavior: Clip.antiAlias,
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(15),
-            width: 300,
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(20),
-              color: appColors.cardBg,
-            ),
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      height: 25,
-                      width: 80,
-                      color: appColors.primaryBg,
-                      child: const Center(
-                          child: Text(
-                        '100%',
-                        style: TextStyle(
-                          color: appColors
-                              .primaryText,
-                        ),
-                      )),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                Container(
-                  height: 25,
-                  width: 80,
-                  color: appColors.primaryBg,
-                  child: const Center(
-                      child: Text(
-                    '10/10 Task',
-                    style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                    ),
-                  )),
-                ),
-                const Text(
-                  'Pemrograman Mobile - Flutter',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 20),
-                ),
-                const Text(
-                  'Deadline 3 Hari lagi',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 15),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(15),
-            width: 300,
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(20),
-              color: appColors.cardBg,
-            ),
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      height: 25,
-                      width: 80,
-                      color: appColors.primaryBg,
-                      child: const Center(
-                          child: Text(
-                        '100%',
-                        style: TextStyle(
-                          color: appColors
-                              .primaryText,
-                        ),
-                      )),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                Container(
-                  height: 25,
-                  width: 80,
-                  color: appColors.primaryBg,
-                  child: const Center(
-                      child: Text(
-                    '10/10 Task',
-                    style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                    ),
-                  )),
-                ),
-                const Text(
-                  'Pemrograman Mobile - Flutter',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 20),
-                ),
-                const Text(
-                  'Deadline 3 Hari lagi',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 15),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(15),
-            width: 300,
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(20),
-              color: appColors.cardBg,
-            ),
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(25),
-                      child: const CircleAvatar(
-                        backgroundColor:
-                            Colors.amber,
-                        radius: 20,
-                        foregroundImage: NetworkImage(
-                            'https://th.bing.com/th/id/R.b8766cd53b5e1529712ed7e49365b7d4?rik=TsjlPG7zn3aD0w&riu=http%3a%2f%2fvignette2.wikia.nocookie.net%2fminions%2fimages%2fd%2fd5%2fKevin_Minion.jpg%2frevision%2flatest%3fcb%3d20150814124849%26path-prefix%3dde&ehk=wupXpg9U446Wa517LmNwMjETMELA31Kf3CqpfYJG1rc%3d&risl=&pid=ImgRaw&r=0'),
-                      ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      height: 25,
-                      width: 80,
-                      color: appColors.primaryBg,
-                      child: const Center(
-                          child: Text(
-                        '100%',
-                        style: TextStyle(
-                          color: appColors
-                              .primaryText,
-                        ),
-                      )),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                Container(
-                  height: 25,
-                  width: 80,
-                  color: appColors.primaryBg,
-                  child: const Center(
-                      child: Text(
-                    '10/10 Task',
-                    style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                    ),
-                  )),
-                ),
-                const Text(
-                  'Pemrograman Mobile - Flutter',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 20),
-                ),
-                const Text(
-                  'Deadline 3 Hari lagi',
-                  style: TextStyle(
-                      color:
-                          appColors.primaryText,
-                      fontSize: 15),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return Expanded(
+      child: 
+          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              //strem user get task
+              stream: authCon.StreamUsers(authCon.auth.currentUser!.email!),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                //task Id get
+                var taskId = (snapshot.data!.data()
+                    as Map<String, dynamic>)['task_id'] as List;
+
+                return ListView.builder(
+                  itemCount: taskId.length,
+                  clipBehavior: Clip.antiAlias,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return StreamBuilder<
+                            DocumentSnapshot<Map<String, dynamic>>>(
+                        stream: authCon.StreamTask(taskId[index]),
+                        builder: (context, snapshot2) {
+                          if (snapshot2.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          //data taskk
+                          var dataTask = snapshot2.data!.data();
+                          //data user ptot
+                          var dataUserList = (snapshot2.data!.data()
+                              as Map<String, dynamic>)['asign_to'] as List;
+
+                          return GestureDetector(
+                            //edit
+                            onLongPress: () {
+                              Get.defaultDialog(
+                                  title: dataTask!['title'],
+                                  content: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      //update
+
+                                      TextButton.icon(
+                                        onPressed: () {
+                                          Get.back();
+                                          authCon.titleController.text =
+                                              dataTask['title'];
+                                          authCon.descriptionController.text =
+                                              dataTask['description'];
+                                          authCon.dueDateController.text =
+                                              dataTask['due_date'];
+                                          addEditTask(
+                                              context: context,
+                                              type: 'Update',
+                                              docId: taskId[index]);
+                                        },
+                                        icon: const Icon(Icons.edit),
+                                        label: const Text('Update'),
+                                      ),
+                                      //delete
+                                      TextButton.icon(
+                                        onPressed: () {
+                                          authCon.deleteTask(taskId[index]);
+                                        },
+                                        icon: const Icon(Icons.delete),
+                                        label: const Text('Delete'),
+                                      )
+                                    ],
+                                  ));
+                              // addEditTask(
+                              //     context: context,
+                              //     type: 'Update',
+                              //     docId:
+                              //         '2022-08-10T23:44:35.645');
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
+                              height: 150,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: appColors.cardBg,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        height: 40,
+                                        child: Expanded(
+                                          child: ListView.builder(
+                                            itemCount: dataUserList.length,
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                            physics: ScrollPhysics(),
+                                            padding: EdgeInsets.zero,
+                                            itemBuilder: (context, index2) {
+                                              return StreamBuilder<
+                                                      DocumentSnapshot<
+                                                          Map<String,
+                                                              dynamic>>>(
+                                                  stream: authCon.StreamUsers(
+                                                      dataUserList[index2]),
+                                                  builder:
+                                                      (context, snapshot3) {
+                                                    if (snapshot3
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return const Center(
+                                                          child:
+                                                              CircularProgressIndicator());
+                                                    }
+
+                                                    //data user phoyo
+                                                    var dataUserImage =
+                                                        snapshot3.data!.data();
+                                                    return ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25),
+                                                      child: CircleAvatar(
+                                                        backgroundColor:
+                                                            Colors.amber,
+                                                        radius: 20,
+                                                        foregroundImage:
+                                                            NetworkImage(
+                                                                dataUserImage![
+                                                                    'photo']),
+                                                      ),
+                                                    );
+                                                  });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Container(
+                                        height: 25,
+                                        width: 80,
+                                        color: appColors.primaryBg,
+                                        child: Center(
+                                            child: Text(
+                                          dataTask!['status'],
+                                          style: TextStyle(
+                                            color: appColors.primaryText,
+                                          ),
+                                        )),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    height: 20,
+                                    width: 80,
+                                    color: appColors.primaryBg,
+                                    child: Center(
+                                        child: Text(
+                                      '${dataTask['total_task_finished']} / ${dataTask['total_task']} Task',
+                                      style: TextStyle(
+                                        color: appColors.primaryText,
+                                      ),
+                                    )),
+                                  ),
+                                  Text(
+                                    dataTask!['title'],
+                                    style: TextStyle(
+                                        color: appColors.primaryText,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    dataTask['description'],
+                                    style: TextStyle(
+                                        color: appColors.primaryText,
+                                        fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                );
+              }),
     );
+        
+      
+    
   }
 }
-

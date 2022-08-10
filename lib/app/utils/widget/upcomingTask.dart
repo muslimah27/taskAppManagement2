@@ -23,7 +23,7 @@ class upcomingTask extends StatelessWidget {
               const SizedBox(height: 20),
               SingleChildScrollView(
                 child: SizedBox(
-                  height: 150,
+                  height: 160,
                   child: ListView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -31,7 +31,7 @@ class upcomingTask extends StatelessWidget {
                     children: [
                       Container(
                         margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(10),
                         height: 150,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -112,7 +112,7 @@ class upcomingTask extends StatelessWidget {
                       ),
                   Container(
                         margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(10),
                         height: 150,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),

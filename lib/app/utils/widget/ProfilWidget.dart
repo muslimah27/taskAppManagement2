@@ -1,13 +1,12 @@
 
+import 'package:app_task_management/app/data/controller/auth_controller.dart';
 import 'package:app_task_management/app/utils/style/appColors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfilWidget extends StatelessWidget {
-  const ProfilWidget({
-    Key? key,
-  }) : super(key: key);
-
+  final authCon = Get.find<AuthController>();
+ 
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -18,11 +17,11 @@ class ProfilWidget extends StatelessWidget {
           child: 
           ClipRRect(
           borderRadius: BorderRadius.circular(30),
-          child: const CircleAvatar(
+          child: CircleAvatar(
           backgroundColor: Colors.amber, 
           radius: 150,
           foregroundImage: NetworkImage(
-           "https://yt3.ggpht.com/a/AATXAJyUEgqkrx-_Vhz-cpHNMfONR22tfRaCScNzyg=s900-c-k-c0xffffffff-no-rj-mo"),
+           authCon.auth.currentUser!.photoURL!),
          ),                              
        ),
       ),
@@ -33,16 +32,16 @@ class ProfilWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children:  [
             Text(
-                'Muslimahhh cute',
+                authCon.auth.currentUser!.displayName!,
                   style: TextStyle(
                   color: appColors.primaryText,
                   fontSize: 35,
                  ),
               ),
             Text(
-                'Muslimahhh2703@gmail.com',
+                authCon.auth.currentUser!.email!,
                   style: TextStyle(
                   color: appColors.primaryText,
                   fontSize: 15,
@@ -57,12 +56,11 @@ class ProfilWidget extends StatelessWidget {
         children: [
           ClipRRect(
           borderRadius: BorderRadius.circular(30),
-          child: const CircleAvatar(
+          child:  CircleAvatar(
           backgroundColor: Colors.amber, 
           radius: 110,
           foregroundImage: NetworkImage(
-           "https://th.bing.com/th/id/OIP.LAsTdvNl0MnzSP3DKPvb1gHaEo?pid=ImgDet&w=683&h=427&rs=1"),
-           ),                              
+            authCon.auth.currentUser!.photoURL!),),
          ),
          SizedBox(height: 20,),
 
@@ -70,16 +68,16 @@ class ProfilWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                  'Muslimahhh cute',
+                   authCon.auth.currentUser!.displayName!,
                     style: TextStyle(
                     color: appColors.primaryText,
                     fontSize: 35,
                    ),
                 ),
               Text(
-                  'Muslimahhh2703@gmail.com',
+                   authCon.auth.currentUser!.email!,
                     style: TextStyle(
                     color: appColors.primaryText,
                     fontSize: 15,

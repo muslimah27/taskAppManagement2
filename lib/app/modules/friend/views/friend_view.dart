@@ -1,5 +1,3 @@
-
-
 import 'package:app_task_management/app/data/controller/auth_controller.dart';
 import 'package:app_task_management/app/utils/widget/myFriends.dart';
 import 'package:app_task_management/app/utils/widget/poepleYouMayKnow.dart';
@@ -84,11 +82,11 @@ class FriendView extends GetView<FriendController> {
                                       ),
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(30),
-                                        child: const CircleAvatar(
+                                        child: CircleAvatar(
                                           backgroundColor: Colors.amber,
                                           radius: 25,
-                                          foregroundImage: NetworkImage(
-                                              "https://yt3.ggpht.com/a/AATXAJyUEgqkrx-_Vhz-cpHNMfONR22tfRaCScNzyg=s900-c-k-c0xffffffff-no-rj-mo"),
+                                          foregroundImage: NetworkImage(authCon
+                                              .auth.currentUser!.photoURL!),
                                         ),
                                       )
                                     ],
@@ -170,8 +168,8 @@ class FriendView extends GetView<FriendController> {
                                   leading: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: Image(
-                                      image: NetworkImage(
-                                        authCon.hasilPencarian[index]['photo']),
+                                      image: NetworkImage(authCon
+                                          .hasilPencarian[index]['photo']),
                                     ),
                                   ),
                                   title: Text(

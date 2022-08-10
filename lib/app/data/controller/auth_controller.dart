@@ -9,16 +9,24 @@ import '../../routes/app_pages.dart';
 class AuthController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   UserCredential? _userCredential;
   //serach data m
-  late TextEditingController searchFriendsController;
+  late TextEditingController searchFriendsController,
+      titleController,
+      descriptionController,
+      dueDateController;
 
   @override
   void onInit() {
     super.onInit();
     searchFriendsController = TextEditingController();
+    titleController = TextEditingController();
+    descriptionController = TextEditingController();
+    dueDateController = TextEditingController();
   }
+  
 
   @override
   void onReady() {
@@ -29,6 +37,10 @@ class AuthController extends GetxController {
   void onClose() {
     super.onClose();
     searchFriendsController.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
+    dueDateController.dispose();
+   
   }
 
   Future signInWithGoogle() async {
@@ -183,9 +195,76 @@ class AuthController extends GetxController {
         .collection('users')
         .where('email', whereNotIn: listFriends)
         .get();
-    
+
     return hasil;
   }
+
+  void saveUpdateTask(String? title, String? description, String? duDate,
+      String? docId, String? type) async {
+    print(title);
+    print(description);
+    print(duDate);
+    print(docId);
+    print(type);
+
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    formKey.currentState!.save();
+    CollectionReference taskColl = firestore.collection('task');
+    CollectionReference userColl = firestore.collection('users');
+    var taskId = DateTime.now().toIso8601String();
+    if (type == 'Add') {
+      await taskColl.doc(taskId).set({
+        'title': title,
+        'description': description,
+        'due_date': duDate,
+        'status': '0',
+        'total_task': '0',
+        'total_task_finished': '0',
+        'task_detail': [],
+        'asign_to': [auth.currentUser!.email],
+        'created_by': auth.currentUser!.email,
+      }).whenComplete(() async {
+        await userColl.doc(auth.currentUser!.email).set({
+          'task_id': FieldValue.arrayUnion([taskId])
+        }, SetOptions(merge: true));
+        Get.back();
+        Get.snackbar('Task', 'successfuly $type');
+      }).catchError((error) {
+        Get.snackbar('Task', 'Error $type');
+      });
+    } else {
+      await taskColl.doc(docId).update({
+        'title': title,
+        'description': description,
+        'due_date': duDate,
+      }).whenComplete(() async {
+        // await userColl.doc(auth.currentUser!.email).set({
+        //   'task_id': FieldValue.arrayUnion([taskId])
+        // }, SetOptions(merge: true));
+        Get.back();
+        // $type = status add atau edit
+        Get.snackbar('Task', 'successfuly $type');
+      }).catchError((error) {
+        Get.snackbar('Task', 'Error $type');
+      });
+    }
+  }
+
+  //delete task
+
+  void deleteTask(String taskId) async {
+    CollectionReference taskColl = firestore.collection('task');
+    CollectionReference userColl = firestore.collection('users');
+
+    await taskColl.doc(taskId).delete().whenComplete(() async {
+      await userColl.doc(auth.currentUser!.email).set({
+        'task_id': FieldValue.arrayRemove([taskId])
+      }, SetOptions(merge: true));
+      Get.back();
+      Get.snackbar('Task', 'Sukses delete Task');
+    });
+  }
 }
-
-
