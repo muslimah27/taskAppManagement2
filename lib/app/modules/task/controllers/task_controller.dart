@@ -42,18 +42,13 @@ class TaskController extends GetxController {
 
   void increment() => count.value++;
 
-  void saveUpdateTask(
-      String? title,
-      String? description,
-      String? duDate,
-      String? docId,
-      String? type) async {
-        print(title);
-        print(description);
-        print(duDate);
-        print(docId);
-        print(type);
-
+  void saveUpdateTask(String? title, String? description, String? duDate,
+      String? docId, String? type) async {
+    print(title);
+    print(description);
+    print(duDate);
+    print(docId);
+    print(type);
 
     final isValid = formKey.currentState!.validate();
     if (!isValid) {
@@ -89,9 +84,9 @@ class TaskController extends GetxController {
         'description': description,
         'due_date': duDate,
       }).whenComplete(() async {
-        await userColl.doc(authCon.auth.currentUser!.email).set({
-          'task_id': FieldValue.arrayUnion([taskId])
-        }, SetOptions(merge: true));
+        // await userColl.doc(authCon.auth.currentUser!.email).set({
+        //   'task_id': FieldValue.arrayUnion([taskId])
+        // }, SetOptions(merge: true));
         Get.back();
         // $type = status add atau edit
         Get.snackbar('Task', 'successfuly $type');
@@ -100,4 +95,21 @@ class TaskController extends GetxController {
       });
     }
   }
+
+  //delete task
+
+  void deleteTask(String taskId) async {
+    CollectionReference taskColl = firestore.collection('task');
+    CollectionReference userColl = firestore.collection('users');
+
+    await taskColl.doc(taskId).delete().whenComplete(() async {
+      await userColl.doc(auth.currentUser!.email).set({
+        'task_id' : FieldValue.arrayRemove([taskId])
+      }, SetOptions(merge: true));
+      Get.back();
+        Get.snackbar('Task', 'Sukses delete Task');
+
+    });
+
+    }
 }

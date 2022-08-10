@@ -167,6 +167,11 @@ class AuthController extends GetxController {
   Stream<DocumentSnapshot<Map<String, dynamic>>> StreamUsers(String email) {
     return firestore.collection('users').doc(email).snapshots();
   }
+  //stream task
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> StreamTask(String taskId) {
+    return firestore.collection('task').doc(taskId).snapshots();
+  }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getPeople() async {
     CollectionReference friendsCollec = firestore.collection('friends');
@@ -182,3 +187,5 @@ class AuthController extends GetxController {
     return hasil;
   }
 }
+
+
