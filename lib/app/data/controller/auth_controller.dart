@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -165,16 +163,22 @@ class AuthController extends GetxController {
         .doc(auth.currentUser!.email)
         .snapshots();
   }
+
   Stream<DocumentSnapshot<Map<String, dynamic>>> StreamUsers(String email) {
-    return firestore
-        .collection('users')
-        .doc(email)
-        .snapshots();
+    return firestore.collection('users').doc(email).snapshots();
   }
-  // Future<QuerySnapshot<Map<String, dynamic>>> getPeople() async{
-  //   CollectionReference users = firestore.collection('users');
 
-  //   return;
+  Future<QuerySnapshot<Map<String, dynamic>>> getPeople() async {
+    CollectionReference friendsCollec = firestore.collection('friends');
 
-  // }
+    final cekFriends = await friendsCollec.doc(auth.currentUser!.email).get();
+    var listFriends =
+        (cekFriends.data() as Map<String, dynamic>)['emailFriends'] as List;
+    QuerySnapshot<Map<String, dynamic>> hasil = await firestore
+        .collection('users')
+        .where('email', whereNotIn: listFriends)
+        .get();
+    
+    return hasil;
+  }
 }
